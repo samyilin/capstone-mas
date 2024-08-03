@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+# Byte-compiled / db
 __pycache__/
 db/
 
@@ -6,13 +6,10 @@ cred.json
 
 # Environments
 .env
-.env.bak
-.env.local
 .env.development
 .env.production
 .env.test
 .env.staging
-
 
 # VSCode settings
 .vscode/
