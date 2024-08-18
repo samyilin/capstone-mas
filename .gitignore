@@ -19,3 +19,4 @@ cred.json
 Thumbs.db
 *.csv
 *.db
+sql.py
