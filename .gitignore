@@ -17,3 +17,5 @@ cred.json
 # OS files
 .DS_Store
 Thumbs.db
+*.csv
+*.db

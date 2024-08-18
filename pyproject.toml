@@ -7,9 +7,18 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<=3.13"
-crewai = { extras = ["tools"], version = "^0.35.8" }
-crewai-tools = "^0.4.6"
+crewai = { extras = ["tools", "agentops"], version = "^0.51.1" }
 google-api-python-client = ">=2.139.0"
+gspread = "^6.1.2"
+pyairtable = "^2.3.3"
+llama-index = "^0.10.65"
+llama-index-llms-openai = "^0.1.29"
+jsonpath-ng = "^1.6.1"
+langchain-anthropic = "^0.1.20"
+ollama = "^0.2.1"
+pydantic = "^2.8.2"
+langchain-groq = "^0.1.9"
+langchain-experimental = "^0.0.64"
 
 [tool.poetry.scripts]
 weekly_update = "weekly_update.main:run"

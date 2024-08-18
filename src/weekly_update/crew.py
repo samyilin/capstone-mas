@@ -1,67 +1,131 @@
-import os
-from langchain_openai import ChatOpenAI
-from crewai import Agent, Task, Crew, Process
-from dotenv import load_dotenv
-from weekly_update.tools.google_sheet_tool import GoogleSheetTool
-from crewai import Agent, Crew, Process, Task
+import sqlite3
+import pandas as pd
+
 from crewai.project import CrewBase, agent, crew, task
+from crewai import Agent, Task, Crew, Process
+from crewai_tools import tool
 
-load_dotenv()
+from langchain_community.tools.sql_database.tool import (
+    InfoSQLDatabaseTool,
+    ListSQLDatabaseTool,
+    QuerySQLCheckerTool,
+    QuerySQLDataBaseTool,
+)
+from langchain_community.utilities.sql_database import SQLDatabase
+from langchain_groq import ChatGroq
+from agentops import record_tool
 
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-os.environ["OPENAI_MODEL_NAME"] = os.getenv("OPENAI_MODEL_NAME")
+
+df = pd.read_csv("sqd.csv")
+
+connection = sqlite3.connect("sqd.db")
+df.to_sql(name="sqd", con=connection, if_exists='replace')
+db = SQLDatabase.from_uri("sqlite:///sqd.db")
+
 
 @CrewBase
 class WeeklySlackUpdateCrew:
     """WeeklySlackUpdateCrew Crew"""
 
-    agents_config = "config/agents.yaml"
-    tasks_config = "config/tasks.yaml"
+    llm = ChatGroq(
+    temperature=0,
+    model_name="llama3-70b-8192"
+    )
 
-    cred_file = 'cred.json'
-    spreadsheet_id = '1Plb8FFG_kfvxoQC4tA6f6Z61iny9WW3-BC1hQFdARvE'
+    @tool("list_tables") 
+    @record_tool('list_tables')
+    def list_tables() -> str:
+        """List the available tables in the database"""
+        return ListSQLDatabaseTool(db=db).invoke("")
 
-    gsheet_tool = GoogleSheetTool(cred_file=cred_file, spreadsheet_id=spreadsheet_id)
+    @tool("tables_schema")
+    @record_tool('tables_schema')
+    def tables_schema(tables: str) -> str:
+        """
+        Input is a comma-separated list of tables, output is the schema and sample rows
+        for those tables. Be sure that the tables actually exist by calling `list_tables` first!
+        Example Input: table1, table2, table3
+        """
+        tool = InfoSQLDatabaseTool(db=db)
+        return tool.invoke(tables)
+
+    @tool("check_sql")
+    @record_tool('check_sql')
+    def check_sql(sql_query: str) -> str:
+        """
+        Use this tool to double check if your query is correct before executing it. Always use this
+        tool before executing a query with `execute_sql`.
+        """
+        return QuerySQLCheckerTool(db=db, llm=WeeklySlackUpdateCrew.llm).invoke({"query": sql_query})
+    
+    @tool("execute_sql")
+    @record_tool('execute_sql')
+    def execute_sql(sql_query: str) -> str:
+        """Execute a SQL query against the database. Returns the result"""
+        return QuerySQLDataBaseTool(db=db).invoke(sql_query)
 
     @agent
-    def account_manager(self) -> Agent:
+    def sql_dev(self) -> Agent:
         return Agent(
-            config=self.agents_config["account_manager"],
-            tools=[self.gsheet_tool],
+            config=self.agents_config["sql_dev"],
+            tools=[self.list_tables, self.tables_schema, self.execute_sql, self.check_sql],
             verbose=True,
             allow_delegation=False,
+            max_iter=5,
+            llm=self.llm
         )
 
     @agent
-    def qa_agent(self) -> Agent:
+    def data_analyst(self) -> Agent:
         return Agent(
-            config=self.agents_config["qa_agent"],
+            config=self.agents_config["data_analyst"],
             verbose=True,
-            allow_delegation=False
+            allow_delegation=False,
+            llm=self.llm
+        )
+
+    @agent
+    def report_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["report_writer"],
+            verbose=True,
+            allow_delegation=False,
+            llm=self.llm
         )
 
     @task
-    def account_manager_task(self) -> Task:
+    def extract_data_task(self) -> Task:
         return Task(
-            config=self.tasks_config["account_manager_task"],
-            agent=self.account_manager()
+            config=self.tasks_config["extract_data_task"],
+            agent=self.sql_dev(),
+            verbose=True
         )
 
     @task
-    def qa_agent_task(self) -> Task:
+    def analyze_data_task(self) -> Task:
         return Task(
-            config=self.tasks_config["qa_agent_task"],
-            agent=self.qa_agent(),
-            output_file="output/output.txt",
+            config=self.tasks_config["analyze_data_task"],
+            agent=self.data_analyst(),
+            context=[self.extract_data_task()],
+            verbose=True
+        )
+
+    @task
+    def write_report_task(self) -> Task:
+        return Task(
+            config=self.tasks_config["write_report_task"],
+            agent=self.report_writer(),
+            context=[self.analyze_data_task()],
+            verbose=True
         )
 
     @crew
     def crew(self) -> Crew:
         """Creates the WeeklySlackUpdateCrew crew"""
         return Crew(
-            agents=self.agents,  # Automatically created by the @agent decorator
-            tasks=self.tasks,  # Automatically created by the @task decorator
+            agents=self.agents,
+            tasks=self.tasks,
             process=Process.sequential,
             verbose=True,
-            manager_lm=ChatOpenAI(temperature=0, model="gpt-4")
-        )
+            memory=False            
+            )
