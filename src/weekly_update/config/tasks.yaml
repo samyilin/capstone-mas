@@ -1,18 +1,34 @@
 extract_data_task:
   description: >
     Extract data that is required for the query {query}.
+    The first row should be always the fields names.
   expected_output: >
     Database result for the query.
 
 analyze_data_task:
   description: >
-    Analyze the data from the database and write an analysis for {query}.
+    Analyze the data from the extract_data_task task and write an analysis for {query}.
+    Before everything, sort the metrics by highest to lowest value to clearly identify top and low performers.
+    Make sure that you scan all the results carefully to come up with an accurate analysis.
+    Don't mix up the fields and their corresponding values.
   expected_output: >
-    Detailed analysis text.
+    Present your findings in a structured summary report
 
 write_report_task:
   description: >
-    Write an executive summary of the report from the analysis. The report
-    must be less than 100 words.
+    Write an executive summary of the report from the analysis in less than 150 words.
+    1. **First, sort all metrics by performance**:
+      - Sort in descending order to identify the **top performer**.
+      - Sort in ascending order to identify the **bottom performer**.
+    2. **Ensure that you select**:
+      - **The very first two metric** in the descending list as the top performer.
+      - **The very first two metric** in the ascending list as the bottom performer.
+    3. **Only include these four metrics** in your summary and completely ignore all other metrics.
+    4. Treat each selected metric separately, rename them using business-friendly terms, and include at least two figures (e.g., percentage, dollar amount, count) for each.
+    5. Double-check to ensure that the **absolute top and bottom metrics** are chosen, not any others.
+    Ensure the summary is formatted as a chat message ready to be sent via Slack, not in markdown.
+
   expected_output: >
-    Markdown report.
+    A chat message ready to be sent via Slack not a markdown.
+
+

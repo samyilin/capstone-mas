@@ -15,12 +15,11 @@ from langchain_community.utilities.sql_database import SQLDatabase
 from langchain_groq import ChatGroq
 from agentops import record_tool
 
+df = pd.read_csv("marketing_data.csv")
 
-df = pd.read_csv("sqd.csv")
-
-connection = sqlite3.connect("sqd.db")
-df.to_sql(name="sqd", con=connection, if_exists='replace')
-db = SQLDatabase.from_uri("sqlite:///sqd.db")
+connection = sqlite3.connect("marketing_data.db")
+df.to_sql(name="marketing_data", con=connection, if_exists='replace')
+db = SQLDatabase.from_uri("sqlite:///marketing_data.db")
 
 
 @CrewBase
