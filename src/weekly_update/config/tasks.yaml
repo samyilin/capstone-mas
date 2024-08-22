@@ -1,12 +1,17 @@
 extract_data_task:
   description: >
     Extract data that is required for the query {query}.
+    The first row should be always the fields names
+    The last row should be the totals for hits, sales and money and the average of conversion rate
   expected_output: >
     Database result for the query.
 
 analyze_data_task:
   description: >
     Analyze the data from the database and write an analysis for {query}.
+    Double check your calculation and go through all the records as data is not sorted
+    Make sure you map the fields to the header mentioned in the first row
+
   expected_output: >
     Detailed analysis text.
 
@@ -15,4 +20,4 @@ write_report_task:
     Write an executive summary of the report from the analysis. The report
     must be less than 100 words.
   expected_output: >
-    Markdown report.
+    Slack message with double quotes.

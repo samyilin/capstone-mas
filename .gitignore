@@ -13,6 +13,7 @@ cred.json
 
 # VSCode settings
 .vscode/
+.streamlit/
 
 # OS files
 .DS_Store
@@ -20,3 +21,4 @@ Thumbs.db
 *.csv
 *.db
 sql.py
+*.log
