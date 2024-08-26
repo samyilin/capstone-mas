@@ -23,7 +23,7 @@ connection = psycopg2.connect(
     port="5432"
 )
 
-query = "SELECT * FROM client_performance_reports"
+query = "SELECT * FROM marketing_data"
 df = pd.read_sql(query, connection)
 
 # Initialize the SQLDatabase utility with the PostgreSQL URI
@@ -39,7 +39,7 @@ class WeeklySlackUpdateCrew:
     llm = ChatGroq( 
     temperature=0,
     model_name="llama3-70b-8192",
-    groq_api_key="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"
+    groq_api_key=""
     )
 
     @tool("list_tables") 
