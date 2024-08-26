@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "first-renderer-406123",
+    "private_key_id": "ee85559b7f9db4912e3a86cfc50cb1a446dcf330",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDmtpB7XEjVfRmh\n8fSn+qEox5Vqsd/Q+EAxw5xFb2hay5kmWkBp15sjh0/tyMHA3EnNrqTbpO+09MnQ\njd4oKIhBw5rk15R7h5cowaNO7kEX6jUaaJpgzy9JsO9jV9K/PHV9TZCqGUJRCr2S\n7V/ZBLqxbxPr6F+WG39rmG4dT0vIo6WLw3iEpG0LBx90tklMdpLDB/e2vR+D/2aV\nvdaRMy4lzz9GGtERtl4hkzvnTDj4P1vrTUlE+Akdqe4wWl8Tv7/OfYvNRKmr9A3D\n/3+2d8L+h1xddTfxJiiZFmQxlEy42i9yrXWks1Ka1wMecoqC8q82wPLI5BbAwnV6\nbgYzCvSPAgMBAAECggEASxSLdVHFdBBnmI+kZkwGST6WLegf5aH8RhWZ0/Da/X03\nZEdHogojtw6wYLoN76TgsbpNdRs6VOG6kY+xhdEW8ovk6ucLL54i/4Twj92yOkWi\nLWtwHeQex/T4GpS4hTp4I6Rr2ScqMTR1GAz+vaGv3dE/oux2uuNM9qde4lPtXifh\nHNKHWaCUuF86WPUsGHsw0HqAzVJNJA0CWaZYi1RV9bujKjcovA0tsVPbRXdLj9UK\nLdCrZZIWZ8hYPwyK4+h8RmsMFdtuZNCEfUpeqfYDiW4jC3MVRT4cYfmfKWxMNp+I\niXyQfn6JI9o2rRfF88cUuPLHA8AsFWTq4AbFDwsMaQKBgQD5ANcY/gGB8XqlNC2r\nyV8t2AFIj639Hv2plvz1Y3+BgIsA8G4TcxoSk5s5VP2EKC3K3o3v8sAUAwLG6Nxb\ngTVfZ1HcrIetuMlblSbcyXMszowJ9wgWTdGRSH3xWfjiyoQTudbjIthz8n8zvmL4\noGIgNmA6x/OZnAp0J8jrgK6QyQKBgQDtMihJE/IkUGLoVPsjURs1LEi9qqlv3xu+\nm4/co6Epb9a7lzb9Nd71W+Ju1lXS6+Wia5fcj+pnjpVpiFxKnUwF+LBFtdASh/Xl\nXH2LSArsp1u4dPwYBoVe889hRl4r4YgqgoQfOh3yz/xQkBk7YfwxKNKnhE6dVFX1\niUnDqDwelwKBgQDHMF7hRUBbfJrJ0SW/yET1XVgZfaaHV+U/ZuNQQZncNMH9rFfC\nA0+WELIZeN2cfK+1G7ebfSseVxI/oEO2h3P0r6gSyYl39NxPAM+nyxbxfwETb6Pu\ng63jdIQbMAgjFDH3vbAi3tscVZ5f/CscDOCyOA1euFksRmEubi0SB0yd0QKBgQDU\nhCHwB7zlqFhVzP4N0HdOFtU9ihCxOPaEuqAUkU6t75Q3Eu6jw4Z10tN3dvYCOnTO\nJxQy+4aLLgbUPOZju7cHip90dcdtMv+vdkTNa8jN68yT4cyUQhNw1YUypHdvXWxA\nmhuCVvHKQWrRS6ovuETaTrcee75r28oAafb7JFppFQKBgQCQ3Z17W6oE961LfHXQ\njsIf/HGGpHPOI6OIelmHHYp5aeB6OGtti30LixKcLCI9P3QCclb1uViNw19wdeTM\nQ1f55t13AI85jYb6vswEFeyd105A1mIaIzpj+J+ZVKK4G12SHmNz1lH2hoimiPHz\nw3ZGOZPtO8C2apImr22G+JzAtw==\n-----END PRIVATE KEY-----\n",
+    "client_email": "bonafide-agent-building@first-renderer-406123.iam.gserviceaccount.com",
+    "client_id": "107261893261189395937",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bonafide-agent-building%40first-renderer-406123.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }

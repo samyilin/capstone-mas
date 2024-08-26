@@ -1,0 +1,18 @@
+account_manager_task:
+  description: >
+    Using the insights on all companies provided one company per line. Data is provided is converted from as a spreadsheet. 
+    Give highlights and summarize by comparing the last reporting periods columns. Use a slack chat tone
+  expected_output: >
+    Explain important metrics highlighting their trend.
+
+qa_agent_task:
+  description: >
+    Review the response drafted by the Senior Account Manager.
+    Ensure that the answer is comprehensive, accurate, and adheres to the high-quality standards expected for a senior account manager
+    Don't try to explain the results or factors behind the facts.
+  expected_output: >
+    A final, quick, and informative response ready to be sent to the customer.
+    This response should fully show the important trends. Be formal and maintain a professional tone throughout. Don't give a final conclusion or compare the companies.
+    Don't provide any introductions or conclusions.
+
+
